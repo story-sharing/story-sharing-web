@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
@@ -7,7 +10,7 @@ import * as ROUTES from '../../constants/routes';
 
 const SignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
+    <h2>Sign Up</h2>
     <SignUpForm />
   </div>
 );
@@ -64,39 +67,39 @@ class SignUpFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <TextField
           name="username"
           value={username}
           onChange={this.onChange}
           type="text"
           placeholder="Full Name"
         />
-        <input
+        <TextField
           name="email"
           value={email}
           onChange={this.onChange}
-          type="text"
+          type="email"
           placeholder="Email Address"
         />
-        <input
+        <TextField
           name="passwordOne"
           value={passwordOne}
           onChange={this.onChange}
           type="password"
           placeholder="Password"
         />
-        <input
+        <TextField
           name="passwordTwo"
           value={passwordTwo}
           onChange={this.onChange}
           type="password"
           placeholder="Confirm Password"
         />
-        <button disabled={isInvalid} type="submit">
+        <Button variant="contained" disabled={isInvalid} type="submit">
           Sign Up
-        </button>
+        </Button>
 
-        {error && <p>{error.message}</p>}
+        {error && <p><Typography variant="caption">{error.message}</Typography></p>}
       </form>
     );
   }
