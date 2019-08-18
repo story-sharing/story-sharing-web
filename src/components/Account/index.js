@@ -1,7 +1,7 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
 
 import { AuthUserContext, withAuthorization } from '../Session';
-import { PasswordForgetForm } from '../PasswordForget';
 import PasswordChangeForm from '../PasswordChange';
 
 const AccountPage = () => (
@@ -9,7 +9,9 @@ const AccountPage = () => (
       {authUser => (
         <div>
           <h2>Account: {authUser.email}</h2>
-          <PasswordChangeForm />
+          <Grid item xs={6}>
+            <PasswordChangeForm />
+          </Grid>
         </div>
       )}
     </AuthUserContext.Consumer>

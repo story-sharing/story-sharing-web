@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AuthUserContext, withAuthorization } from '../Session';
+import { withAuthorization } from '../Session';
 import * as ROLES from '../../constants/roles';
 
 const AdminPage = () => (
