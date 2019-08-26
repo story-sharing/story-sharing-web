@@ -14,25 +14,19 @@ import * as ROUTES from '../../constants/routes';
 import { AuthUserContext } from '../Session';
 
 const Navigation = () => (
-  <div>
-    <AuthUserContext.Consumer>
-      {authUser =>
-        authUser ? <NavigationAuth /> : <NavigationNonAuth />
-      }
-    </AuthUserContext.Consumer>
-  </div>
+  <AuthUserContext.Consumer>
+    {authUser =>
+      authUser ? (
+        <NavigationAuth authUser={authUser} />
+      ) : (
+        <NavigationNonAuth />
+      )
+    }
+  </AuthUserContext.Consumer>
 );
 
-const NavigationAuth = () => (
+const NavigationAuth = ({ authUser }) => (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText>
-        <Link to={ROUTES.LANDING}>Landing</Link>
-      </ListItemText>
-    </ListItem>
     <ListItem button>
       <ListItemIcon>
         <ShoppingCartIcon />
@@ -49,6 +43,16 @@ const NavigationAuth = () => (
         <Link to={ROUTES.ACCOUNT}>Account</Link>
       </ListItemText>
     </ListItem>
+    {!!authUser.admin && (
+      <ListItem button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText>
+          <Link to={ROUTES.ADMIN}>Admin</Link>
+        </ListItemText>
+      </ListItem>
+    )}
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />

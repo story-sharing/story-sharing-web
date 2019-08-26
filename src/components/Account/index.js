@@ -8,7 +8,10 @@ const AccountPage = () => (
   <AuthUserContext.Consumer>
       {authUser => (
         <div>
-          <h2>Account: {authUser.email}</h2>
+          <h2>{authUser.username}</h2>
+          <h4>{authUser.email}</h4>
+          <h4>{authUser.uid}</h4>
+          <p>Admin: {JSON.stringify(authUser.admin)}</p>
           <Grid item xs={6}>
             <PasswordChangeForm />
           </Grid>

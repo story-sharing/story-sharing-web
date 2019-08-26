@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 
-import MediaCard from '../MediaCard';
+import StoryList from '../StoryList';
 import { withAuthorization } from '../Session';
 
 const HomePage = () => (
@@ -11,7 +11,7 @@ const HomePage = () => (
     <Grid container spacing={3}>
       <Grid item xs={6}>
         <h3>New Stories</h3>
-        <MediaCard />
+        <StoryList />
       </Grid>
     </Grid>
   </div>
