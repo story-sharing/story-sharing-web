@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
+
 import { Link, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
@@ -7,8 +15,10 @@ import * as ROUTES from '../../constants/routes';
 
 const SignUpPage = () => (
   <div>
-    <h1>SignUp</h1>
-    <SignUpForm />
+    <h2>Sign Up</h2>
+    <Grid item xs={6}>
+      <SignUpForm />
+    </Grid>
   </div>
 );
 
@@ -63,41 +73,60 @@ class SignUpFormBase extends Component {
       username === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <Card>
+        <CardContent>
+          <form onSubmit={this.onSubmit}>
+            <FormControl fullWidth>
+              <TextField
+                name="username"
+                value={username}
+                onChange={this.onChange}
+                type="text"
+                placeholder="Full Name"
+                margin="normal"
+                label="Full Name"
+              />
+            </FormControl>
+            <FormControl fullWidth>
+              <TextField
+                name="email"
+                value={email}
+                onChange={this.onChange}
+                type="email"
+                placeholder="Email Address"
+                margin="normal"
+                label="Email Address"
+              />
+            </FormControl>
+            <FormControl fullWidth>
+                <TextField
+                name="passwordOne"
+                value={passwordOne}
+                onChange={this.onChange}
+                type="password"
+                placeholder="Password"
+                margin="normal"
+                label="Password"
+              />
+            </FormControl>
+            <FormControl fullWidth>
+              <TextField
+                name="passwordTwo"
+                value={passwordTwo}
+                onChange={this.onChange}
+                type="password"
+                placeholder="Confirm Password"
+                margin="normal"
+                label="Confirm Password"
+              />
+            </FormControl>
+            <Button variant="contained" disabled={isInvalid} type="submit">
+              Sign Up
+            </Button>
+            {error && <p><Typography variant="caption">{error.message}</Typography></p>}
+          </form>
+        </CardContent>
+      </Card>
     );
   }
 }

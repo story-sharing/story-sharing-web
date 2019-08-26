@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const PasswordForgetPage = () => (
   <div>
-    <h1>PasswordForget</h1>
-    <PasswordForgetForm />
+    <h2>Reset Password</h2>
+    <p>If you have forgotten your password, we can send you a link to reset it.</p>
+    <Grid item xs={6}>
+      <PasswordForgetForm />
+    </Grid>
   </div>
 );
 
@@ -48,20 +59,27 @@ class PasswordForgetFormBase extends Component {
     const isInvalid = email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={this.state.email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <Card>
+        <CardContent>
+          <form onSubmit={this.onSubmit}>
+            <FormControl fullWidth>
+              <TextField
+                name="email"
+                value={this.state.email}
+                onChange={this.onChange}
+                type="text"
+                placeholder="Email Address"
+                margin="normal"
+                label="Email Address"
+              />
+            </FormControl>
+            <Button variant="contained" disabled={isInvalid} type="submit">
+              Reset
+            </Button>
+            {error && <p><Typography variant="caption">{error.message}</Typography></p>}
+          </form>
+        </CardContent>
+      </Card>
     );
   }
 }

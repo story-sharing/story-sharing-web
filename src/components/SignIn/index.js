@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
+
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
@@ -9,10 +17,12 @@ import * as ROUTES from '../../constants/routes';
 
 const SignInPage = () => (
   <div>
-    <h1>SignIn</h1>
-    <SignInForm />
-    <PasswordForgetLink />
-    <SignUpLink />
+    <h2>Sign In</h2>
+    <Grid item xs={6}>
+      <SignInForm />
+      <PasswordForgetLink />
+      <SignUpLink />
+    </Grid>
   </div>
 );
 
@@ -55,27 +65,38 @@ class SignInFormBase extends Component {
     const isInvalid = password === '' || email === '';
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <Card>
+        <CardContent>
+          <form onSubmit={this.onSubmit}>
+            <FormControl fullWidth>
+              <TextField
+                name="email"
+                value={email}
+                onChange={this.onChange}
+                type="email"
+                placeholder="Email Address"
+                margin="normal"
+                label="Email Address"
+              />
+            </FormControl>
+            <FormControl fullWidth>
+              <TextField
+                name="password"
+                value={password}
+                onChange={this.onChange}
+                type="password"
+                placeholder="Password"
+                margin="normal"
+                label="Password"
+              />
+            </FormControl>
+            <Button variant="contained" disabled={isInvalid} type="submit">
+              Sign In
+            </Button>
+            {error && <p><Typography variant="caption">{error.message}</Typography></p>}
+          </form>
+        </CardContent>
+      </Card>
     );
   }
 }
