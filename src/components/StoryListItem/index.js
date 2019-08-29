@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -11,7 +11,7 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 
 const useStyles = makeStyles(theme => ({
   card: {
-    display: 'flex',
+    display: 'flex'
   },
   details: {
     display: 'flex',
@@ -35,19 +35,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MediaCard() {
+export default function StoryListItem(props) {
+
   const classes = useStyles();
   const theme = useTheme();
-
   return (
     <Card className={classes.card}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
           <Typography component="h5" variant="h5">
-            Live From Space
+            {props.story.title}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            Mac Miller
+            {props.story.uid}
           </Typography>
         </CardContent>
         <div className={classes.controls}>
@@ -69,4 +69,5 @@ export default function MediaCard() {
       />
     </Card>
   );
+
 }
