@@ -12,7 +12,7 @@ class UserListItem extends Component {
   render() {
 
     return (
-      <Card key={this.user.name}>
+      <Card>
         <CardContent>
           <p>ID: {this.user.uid}</p>
           <p>E-Mail: {this.user.email}</p>

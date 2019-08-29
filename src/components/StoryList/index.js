@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
 import { withFirebase } from '../Firebase';
 import StoryListItem from '../StoryListItem';
 
@@ -37,9 +38,13 @@ class StoryList extends Component {
     return (
       <div>
         <h4>Number of stories: {stories.length}</h4>
+        <Grid container spacing={3}>
         {stories.map(story => (
-          <StoryListItem story={story} />
+          <Grid item sm={12} md={6} lg={4}>
+            <StoryListItem story={story} key={story.uid} />
+          </Grid>
         ))}
+        </Grid>
       </div>
     );
   }

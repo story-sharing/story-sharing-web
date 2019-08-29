@@ -38,7 +38,7 @@ class UserList extends Component {
       <div>
         <h4>Number of users: {users.length}</h4>
         {users.map(user => (
-          <UserListItem user={user} />
+          <UserListItem user={user} key={user.uid} />
         ))}
       </div>
     );
