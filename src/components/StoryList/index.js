@@ -35,15 +35,23 @@ class StoryList extends Component {
   render() {
     const { stories, loading } = this.state;
 
+    if (loading) {
+      return (
+        <div>
+          <p>Loading</p>
+        </div>
+      );
+    }
+
     return (
       <div>
         <h4>Number of stories: {stories.length}</h4>
         <Grid container spacing={3}>
-        {stories.map(story => (
-          <Grid item sm={12} md={6} lg={4}>
-            <StoryListItem story={story} key={story.uid} />
-          </Grid>
-        ))}
+          {stories.map(story => (
+            <Grid item sm={12} md={6} lg={4}>
+              <StoryListItem story={story} key={story.uid} />
+            </Grid>
+          ))}
         </Grid>
       </div>
     );

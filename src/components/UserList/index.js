@@ -34,6 +34,14 @@ class UserList extends Component {
   render() {
     const { users, loading } = this.state;
 
+    if (loading) {
+      return (
+        <div>
+          <p>Loading</p>
+        </div>
+      );
+    }
+
     return (
       <div>
         <h4>Number of users: {users.length}</h4>
