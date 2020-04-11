@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import clsx from 'clsx';
 
@@ -27,6 +27,7 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import GroupsPage from '../Groups';
+import GroupPage from '../Group';
 
 import AudioPlayer from '../AudioPlayer';
 
@@ -183,6 +184,9 @@ function Dashboard() {
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
             <Route path={ROUTES.GROUPS} component={GroupsPage} />
+            <Switch>
+              <Route path={ROUTES.GROUP} component={GroupPage} />
+            </Switch>
           </Container>
         </main>
       </div>

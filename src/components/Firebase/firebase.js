@@ -13,6 +13,7 @@ const config = {
 };
 
 class Firebase {
+
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
@@ -78,14 +79,21 @@ class Firebase {
   users = () => this.db.collection('users');
 
 
+  // *** Groups API ***
+
+  group = uid => this.db.doc(`groups/${uid}`);
+  groups = uid => this.db.collection('groups')
+    .where('members', 'array-contains', 'PEf6agPSvcSBmJuJWTcx61Hzle13');
+
+
   // *** Stories API ***
 
   story = uid => this.db.doc(`stories/${uid}`);
   stories = () => this.db.collection('stories');
   publicStories = () => this.stories()
-                          .where('public', '==', true)
-                          .orderBy('createdAt', 'desc')
-                          .limit(20);
+    .where('public', '==', true)
+    .orderBy('createdAt', 'desc')
+    .limit(20);
 
 }
 
