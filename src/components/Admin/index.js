@@ -6,10 +6,6 @@ import UserList from '../UserList';
 
 class AdminPage extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>

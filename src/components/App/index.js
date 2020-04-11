@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,6 +16,7 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import Navigation from '../Navigation';
 import LandingPage from '../Landing';
@@ -24,6 +26,9 @@ import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
+import GroupsPage from '../Groups';
+
+import AudioPlayer from '../AudioPlayer';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -111,7 +116,9 @@ const useStyles = makeStyles(theme => ({
 
 function Dashboard() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+
+  // Drawer
+  const [open, setOpen] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -138,6 +145,11 @@ function Dashboard() {
               Story Sharing
             </Typography>
             <IconButton color="inherit">
+              <Link to={ROUTES.ACCOUNT}>
+                <AccountCircleIcon style={{ color: "white" }} />
+              </Link>
+            </IconButton>
+            <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
@@ -158,6 +170,7 @@ function Dashboard() {
           </div>
           <Navigation />
           <Divider />
+          <AudioPlayer />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -169,6 +182,7 @@ function Dashboard() {
             <Route path={ROUTES.HOME} component={HomePage} />
             <Route path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route path={ROUTES.ADMIN} component={AdminPage} />
+            <Route path={ROUTES.GROUPS} component={GroupsPage} />
           </Container>
         </main>
       </div>
@@ -177,7 +191,7 @@ function Dashboard() {
 }
 
 const App = () => (
-    <Dashboard />
+  <Dashboard />
 );
 
 export default withAuthentication(App);

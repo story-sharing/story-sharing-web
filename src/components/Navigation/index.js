@@ -8,6 +8,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
@@ -40,13 +41,13 @@ const NavigationAuth = ({ authUser }) => (
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText>
-        <Link to={ROUTES.ACCOUNT}>Account</Link>
+        <Link to={ROUTES.GROUPS}>Groups</Link>
       </ListItemText>
     </ListItem>
     {!!authUser.admin && (
       <ListItem button>
         <ListItemIcon>
-          <PeopleIcon />
+          <SettingsIcon />
         </ListItemIcon>
         <ListItemText>
           <Link to={ROUTES.ADMIN}>Admin</Link>
