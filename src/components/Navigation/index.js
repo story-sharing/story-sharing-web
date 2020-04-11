@@ -5,10 +5,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
 import SettingsIcon from '@material-ui/icons/Settings';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
@@ -20,8 +20,8 @@ const Navigation = () => (
       authUser ? (
         <NavigationAuth authUser={authUser} />
       ) : (
-        <NavigationNonAuth />
-      )
+          <NavigationNonAuth />
+        )
     }
   </AuthUserContext.Consumer>
 );
@@ -30,7 +30,7 @@ const NavigationAuth = ({ authUser }) => (
   <div>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <HomeIcon />
       </ListItemIcon>
       <ListItemText>
         <Link to={ROUTES.HOME}>Home</Link>
@@ -56,7 +56,7 @@ const NavigationAuth = ({ authUser }) => (
     )}
     <ListItem button>
       <ListItemIcon>
-        <BarChartIcon />
+        <ExitToAppIcon />
       </ListItemIcon>
       <ListItemText>
         <SignOutButton />
@@ -77,7 +77,7 @@ const NavigationNonAuth = () => (
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <ExitToAppIcon />
       </ListItemIcon>
       <ListItemText>
         <Link to={ROUTES.SIGN_IN}>Sign In</Link>
