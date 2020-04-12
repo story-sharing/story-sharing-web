@@ -36,7 +36,7 @@ function Messages(props) {
         setMessageList(messages);
       });
     return unsubscribe;
-  });
+  }, [props.firebase, props.group]);
 
   return (
     <div>

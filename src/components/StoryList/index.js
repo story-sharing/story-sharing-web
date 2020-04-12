@@ -23,7 +23,7 @@ function StoryList(props) {
 
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
-  const [stories, setStories] = useState([]);
+  const [storyList, setStoryList] = useState([]);
 
   useEffect(() => {
     const unsubscribe = props.firebase
@@ -33,11 +33,17 @@ function StoryList(props) {
         snapshot.forEach(doc =>
           stories.push({ ...doc.data(), uid: doc.id }),
         );
-        setStories(stories);
+        setStoryList(stories);
         setLoading(false);
       });
     return unsubscribe;
   });
+
+  if (loading) {
+    return (
+      <p>Loading</p>
+    );
+  }
 
   return (
     <div className={classes.root}>
@@ -45,7 +51,7 @@ function StoryList(props) {
         <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
           <ListSubheader component="div">Stories</ListSubheader>
         </GridListTile>
-        {stories.map((story) => (
+        {storyList.map((story) => (
           <StoryListItem story={story} key={story.uid} />
         ))}
       </GridList>
