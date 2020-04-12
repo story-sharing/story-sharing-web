@@ -86,8 +86,8 @@ class Firebase {
   group = uid => this.db.doc(`groups/${uid}`);
   groups = uid => this.db.collection('groups')
     .where('members', 'array-contains', 'PEf6agPSvcSBmJuJWTcx61Hzle13');
-  messages = uid => this.group(uid).collection('messages');
-  addMessage = (uid, message) => this.messages(uid)
+  messages = uid => this.group(uid).collection('messages').orderBy('createdAt');
+  addMessage = (uid, message) => this.group(uid).collection('messages')
     .add({
       text: message,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
