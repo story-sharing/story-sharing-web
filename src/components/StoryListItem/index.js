@@ -1,23 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import IconButton from '@material-ui/core/IconButton';
+import InfoIcon from '@material-ui/icons/Info';
 
 const useStyles = makeStyles(theme => ({
-  card: {
-    display: 'flex'
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  content: {
-    flex: '1 0 auto',
-  },
-  cover: {
-    width: 151,
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
   },
 }));
 
@@ -26,23 +16,18 @@ export default function StoryListItem(props) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.card}>
-      <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {props.story.title}
-          </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            {props.story.uid}
-          </Typography>
-        </CardContent>
-      </div>
-      <CardMedia
-        className={classes.cover}
-        image="/static/images/cards/live-from-space.jpg"
-        title="Live from space album cover"
+    <GridListTile key={props.story.uid}>
+      <img src="https://material-ui.com/static/images/grid-list/breakfast.jpg" alt={props.story.title} />
+      <GridListTileBar
+        title={props.story.title}
+        subtitle={<span>by: {props.story.owners}</span>}
+        actionIcon={
+          <IconButton aria-label={`info about ${props.story.title}`} className={classes.icon}>
+            <InfoIcon />
+          </IconButton>
+        }
       />
-    </Card>
+    </GridListTile>
   );
 
 }
