@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import firebase from 'firebase';
 
 const config = {
   apiKey: "AIzaSyAjBDSw0CSx8Qz7Hrf3bblCi6hrd3DxIEk",
@@ -86,6 +87,17 @@ class Firebase {
   groups = uid => this.db.collection('groups')
     .where('members', 'array-contains', 'PEf6agPSvcSBmJuJWTcx61Hzle13');
   messages = uid => this.group(uid).collection('messages');
+  addMessage = (uid, message) => this.messages(uid)
+    .add({
+      text: message,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      author: {
+        uid: this.auth.currentUser.uid,
+        name: this.auth.currentUser.displayName,
+        email: this.auth.currentUser.email,
+        photoURL: this.auth.currentUser.photoURL,
+      },
+    });
 
 
   // *** Stories API ***
