@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  card: {
+    margin: theme.spacing(1),
+  }
 }));
 
 function GroupsPage(props) {
@@ -46,7 +49,7 @@ function GroupsPage(props) {
     <div>
       <h1>Groups</h1>
       {groupList.map(group => (
-        <Card key={group.uid}>
+        <Card key={group.uid} className={classes.card}>
           <CardActionArea onClick={() => history.push(`${ROUTES.GROUPS}/${group.uid}`)}>
             <CardMedia
               component="img"

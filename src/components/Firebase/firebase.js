@@ -85,6 +85,7 @@ class Firebase {
   group = uid => this.db.doc(`groups/${uid}`);
   groups = uid => this.db.collection('groups')
     .where('members', 'array-contains', 'PEf6agPSvcSBmJuJWTcx61Hzle13');
+  messages = uid => this.group(uid).collection('messages');
 
 
   // *** Stories API ***
