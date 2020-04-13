@@ -28,7 +28,7 @@ function Playlist(props) {
         let stories = [];
         snapshot.forEach(doc =>
           doc.data().story.get().then(res => {
-            stories.push({ ...res.data(), uid: res.id });
+            stories.push({ ...res.data(), uid: res.id, playlistId: doc.id });
             setStories(stories);
           })
         );
@@ -45,7 +45,10 @@ function Playlist(props) {
           </ListItemAvatar>
           <ListItemText primary={story.title} />
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete">
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={() => { props.firebase.removeFromPlaylist(story.playlistId)}}>
               <DeleteIcon />
             </IconButton>
           </ListItemSecondaryAction>

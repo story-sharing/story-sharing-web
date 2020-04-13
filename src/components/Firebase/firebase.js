@@ -115,11 +115,14 @@ class Firebase {
   playlist = () => this.db.collection(`users/PEf6agPSvcSBmJuJWTcx61Hzle13/playlist`)
     .orderBy('createdAt', 'desc');
   addToPlaylist = (storyRef) => this.db.collection(`users/${this.auth.currentUser.uid}/playlist`)
-  .add({
-    played: false,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-    story: storyRef,
-  });
+    .add({
+      played: false,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      story: storyRef,
+    });
+  removeFromPlaylist = (uid) => this.db.collection(`users/${this.auth.currentUser.uid}/playlist`)
+    .doc(uid)
+    .delete();
 
 }
 
