@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import { withFirebase } from '../Firebase';
-import StoryListItem from '../StoryListItem';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import IconButton from '@material-ui/core/IconButton';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,46 +14,37 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     backgroundColor: theme.palette.background.paper,
   },
-  gridList: {
-    width: 500,
-    height: 450,
+  icon: {
+    color: 'rgba(255, 255, 255, 0.54)',
   },
 }));
 
 function StoryList(props) {
 
   const classes = useStyles();
-  const [loading, setLoading] = useState(true);
-  const [storyList, setStoryList] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = props.firebase
-      .publicStories()
-      .onSnapshot(snapshot => {
-        let stories = [];
-        snapshot.forEach(doc =>
-          stories.push({ ...doc.data(), uid: doc.id }),
-        );
-        setStoryList(stories);
-        setLoading(false);
-      });
-    return unsubscribe;
-  });
-
-  if (loading) {
-    return (
-      <p>Loading</p>
-    );
-  }
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={180} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
+      <GridList cols={props.cols}>
+        <GridListTile key="Subheader" cols={props.cols} style={{ height: 'auto' }}>
           <ListSubheader component="div">Stories</ListSubheader>
         </GridListTile>
-        {storyList.map((story) => (
-          <StoryListItem story={story} key={story.uid} />
+        {props.stories.length === 0 &&
+          <p>None yet, why not make one?</p>
+        }
+        {props.stories.map((story) => (
+          <GridListTile key={story.title}>
+            <img src={story.image} alt={story.title} />
+            <GridListTileBar
+              title={story.title}
+              subtitle={<span>by: {story.owners}</span>}
+              actionIcon={
+                <IconButton aria-label={`Add ${story.title} to playlist`} className={classes.icon}>
+                  <PlaylistAddIcon />
+                </IconButton>
+              }
+            />
+          </GridListTile>
         ))}
       </GridList>
     </div>
@@ -60,4 +52,4 @@ function StoryList(props) {
 
 }
 
-export default withFirebase(StoryList);
+export default StoryList;

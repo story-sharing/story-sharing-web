@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { withFirebase } from '../Firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { withFirebase } from '../Firebase';
+import StoryList from '../StoryList';
 import Messages from '../Messages';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,6 +17,7 @@ function Group(props) {
   const { uid } = useParams();
   const [group, setGroup] = useState({});
   const [loading, setLoading] = useState(true);
+  const [storyList, setStoryList] = useState([]);
   const classes = useStyles();
 
   useEffect(() => {
@@ -24,6 +26,14 @@ function Group(props) {
       .onSnapshot(doc => {
         setGroup({ ...doc.data(), uid: doc.id });
         setLoading(false);
+      });
+    props.firebase.groupStories(uid)
+      .onSnapshot(snapshot => {
+        let stories = [];
+        snapshot.forEach(doc =>
+          stories.push({ ...doc.data(), uid: doc.id }),
+        );
+        setStoryList(stories);
       });
     return unsubscribe;
   }, [props.firebase, uid]);
@@ -43,9 +53,7 @@ function Group(props) {
               {group.members.map(member => (
                 <p key={member}>{member}</p>
               ))}
-              <h3>Stories</h3>
-              <p>Bob</p>
-              <p>John</p>
+              <StoryList stories={storyList} cols={1} />
             </Grid>
           </Grid>
         </div>

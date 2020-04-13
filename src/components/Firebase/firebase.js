@@ -98,14 +98,15 @@ class Firebase {
         photoURL: this.auth.currentUser.photoURL,
       },
     });
+  groupStories = uid => this.group(uid).collection('stories')
+    .orderBy('createdAt', 'desc')
+    .limit(20);
 
 
   // *** Stories API ***
 
   story = uid => this.db.doc(`stories/${uid}`);
-  stories = () => this.db.collection('stories');
-  publicStories = () => this.stories()
-    .where('public', '==', true)
+  stories = () => this.db.collection('stories')
     .orderBy('createdAt', 'desc')
     .limit(20);
 
