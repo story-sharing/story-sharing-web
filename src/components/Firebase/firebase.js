@@ -1,6 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import firebase from 'firebase';
 
 const config = {
   apiKey: "AIzaSyAjBDSw0CSx8Qz7Hrf3bblCi6hrd3DxIEk",
@@ -13,10 +14,12 @@ const config = {
 };
 
 class Firebase {
+
   constructor() {
     app.initializeApp(config);
     this.auth = app.auth();
     this.db = app.firestore();
+    this.db.enablePersistence();
   }
 
 
@@ -78,14 +81,34 @@ class Firebase {
   users = () => this.db.collection('users');
 
 
+  // *** Groups API ***
+
+  group = uid => this.db.doc(`groups/${uid}`);
+  groups = uid => this.db.collection('groups')
+    .where('members', 'array-contains', 'PEf6agPSvcSBmJuJWTcx61Hzle13');
+  messages = uid => this.group(uid).collection('messages').orderBy('createdAt');
+  addMessage = (uid, message) => this.group(uid).collection('messages')
+    .add({
+      text: message,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      author: {
+        uid: this.auth.currentUser.uid,
+        name: this.auth.currentUser.displayName,
+        email: this.auth.currentUser.email,
+        photoURL: this.auth.currentUser.photoURL,
+      },
+    });
+  groupStories = uid => this.group(uid).collection('stories')
+    .orderBy('createdAt', 'desc')
+    .limit(20);
+
+
   // *** Stories API ***
 
   story = uid => this.db.doc(`stories/${uid}`);
-  stories = () => this.db.collection('stories');
-  publicStories = () => this.stories()
-                          .where('public', '==', true)
-                          .orderBy('createdAt', 'desc')
-                          .limit(20);
+  stories = () => this.db.collection('stories')
+    .orderBy('createdAt', 'desc')
+    .limit(20);
 
 }
 
