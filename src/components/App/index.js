@@ -138,8 +138,7 @@ function Dashboard() {
               color="inherit"
               aria-label="open drawer"
               onClick={handleDrawerOpen}
-              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
-            >
+              className={clsx(classes.menuButton, open && classes.menuButtonHidden)}>
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
@@ -162,8 +161,7 @@ function Dashboard() {
           classes={{
             paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
           }}
-          open={open}
-        >
+          open={open}>
           <div className={classes.toolbarIcon}>
             <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
@@ -171,7 +169,7 @@ function Dashboard() {
           </div>
           <Navigation />
           <Divider />
-          <AudioPlayer />
+          <AudioPlayer open={open} />
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />

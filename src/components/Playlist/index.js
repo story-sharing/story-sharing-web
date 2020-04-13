@@ -39,19 +39,21 @@ function Playlist(props) {
   return (
     <List dense={true} className={classes.playlist}>
       {stories.map((story) => (
-        <ListItem key={story.uid}>
+        <ListItem key={story.playlistId}>
           <ListItemAvatar>
             <Avatar alt={story.title} src={story.image} />
           </ListItemAvatar>
           <ListItemText primary={story.title} />
-          <ListItemSecondaryAction>
-            <IconButton
-              edge="end"
-              aria-label="delete"
-              onClick={() => { props.firebase.removeFromPlaylist(story.playlistId)}}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
+          {props.open &&
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => { props.firebase.removeFromPlaylist(story.playlistId) }}>
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          }
         </ListItem>
       ))}
     </List>
