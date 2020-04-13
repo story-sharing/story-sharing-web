@@ -5,6 +5,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import IconButton from '@material-ui/core/IconButton';
+import Playlist from '../Playlist';
 
 export default function AudioPlayer(props) {
 
@@ -45,9 +46,6 @@ export default function AudioPlayer(props) {
 
   return (
     <div className={classes.player}>
-      <div className={classes.playlist}>
-        <h3>Playlist</h3>
-      </div>
       <div className={classes.controls}>
         <IconButton aria-label="previous">
           {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
@@ -59,8 +57,11 @@ export default function AudioPlayer(props) {
           {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
         </IconButton>
       </div>
-      <h3>{title}</h3>
-      <audio src={src} ref={(input) => {audio = input}} />
+      <audio src={src} ref={(input) => { audio = input }} />
+      <div className={classes.playlist}>
+        <h3>Playlist</h3>
+        <Playlist />
+      </div>
     </div>
   );
 

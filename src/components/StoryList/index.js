@@ -6,6 +6,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import { withFirebase } from '../Firebase'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +40,10 @@ function StoryList(props) {
               title={story.title}
               subtitle={<span>by: {story.owners}</span>}
               actionIcon={
-                <IconButton aria-label={`Add ${story.title} to playlist`} className={classes.icon}>
+                <IconButton
+                aria-label={`Add ${story.title} to playlist`}
+                className={classes.icon}
+                onClick={() => props.firebase.addToPlaylist(story.ref)}>
                   <PlaylistAddIcon />
                 </IconButton>
               }
@@ -52,4 +56,4 @@ function StoryList(props) {
 
 }
 
-export default StoryList;
+export default withFirebase(StoryList);

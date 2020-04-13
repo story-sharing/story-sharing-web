@@ -13,7 +13,7 @@ function HomePage(props) {
       .onSnapshot(snapshot => {
         let stories = [];
         snapshot.forEach(doc =>
-          stories.push({ ...doc.data(), uid: doc.id }),
+          stories.push({ ...doc.data(), uid: doc.id, ref: doc.ref }),
         );
         setStoryList(stories);
         setLoading(false);
